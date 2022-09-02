@@ -1,8 +1,10 @@
 package com.example.movieapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -74,7 +76,10 @@ fun MainContent(moveList: List<String> = listOf(
     Column(modifier = Modifier.padding(12.dp)) {
         LazyColumn{
             items(items = moveList){
-                MovieRow(movie = it)
+                MovieRow(movie = it){movie ->
+                    Log.d("TAG","MainContent: $movie")
+
+                }
 
             }
         }
@@ -83,11 +88,14 @@ fun MainContent(moveList: List<String> = listOf(
 }
 
 @Composable
-fun MovieRow(movie: String){
+fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}){
     Card(modifier = Modifier
         .padding(4.dp)
         .fillMaxWidth()
-        .height(130.dp),
+        .height(130.dp)
+        .clickable{
+                onItemClick(movie)
+        },
     shape = RoundedCornerShape(corner = CornerSize(12.dp)),
     elevation = 6.dp){
         Row(verticalAlignment = Alignment.CenterVertically,
