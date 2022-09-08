@@ -20,6 +20,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.movieapp.navigation.MovieNavigation
 import com.example.movieapp.ui.theme.MovieAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +28,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MyApp {
-                MainContent()
+                MovieNavigation()
             }
 
         }
@@ -38,14 +39,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun MyApp(content: @Composable () ->Unit){
     MovieAppTheme {
-       Scaffold(topBar = {
-           TopAppBar(backgroundColor = Color.Magenta,
-               elevation = 5.dp) {
-               Text(text = "Movies")
-           }
-       }) {
-            content()
-       }
+        content()
         }
     }
 
@@ -53,37 +47,7 @@ fun MyApp(content: @Composable () ->Unit){
 @Composable
 fun DefaultPreview() {
     MyApp {
-        MainContent()
-    }
-}
-
-
-@Composable
-fun MainContent(moveList: List<String> = listOf(
-    "Avatar",
-    "300",
-    "HarryPotter",
-    "Superman",
-    "Spiderman 3",
-    "Justice League",
-    "Life",
-    "Star Wars",
-    "Hell Boy",
-    "Legend of the Seeker",
-    "Xena",
-    "The Minions 2"
-)){
-    Column(modifier = Modifier.padding(12.dp)) {
-        LazyColumn{
-            items(items = moveList){
-                MovieRow(movie = it){movie ->
-                    Log.d("TAG","MainContent: $movie")
-
-                }
-
-            }
-        }
-
+        MovieNavigation()
     }
 }
 
@@ -93,18 +57,18 @@ fun MovieRow(movie: String, onItemClick: (String) -> Unit = {}){
         .padding(4.dp)
         .fillMaxWidth()
         .height(130.dp)
-        .clickable{
-                onItemClick(movie)
+        .clickable {
+            onItemClick(movie)
         },
-    shape = RoundedCornerShape(corner = CornerSize(12.dp)),
-    elevation = 6.dp){
+        shape = RoundedCornerShape(corner = CornerSize(12.dp)),
+        elevation = 6.dp){
         Row(verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start){
+            horizontalArrangement = Arrangement.Start){
             Surface(modifier = Modifier
                 .padding(12.dp)
                 .size(100.dp),
-            shape = RectangleShape,
-            elevation = 4.dp) {
+                shape = RectangleShape,
+                elevation = 4.dp) {
                 Icon(imageVector = Icons.Default.AccountBox,
                     contentDescription = "default placeholder")
             }
