@@ -1,5 +1,6 @@
 package com.example.movieapp.screens.home
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -22,11 +23,12 @@ import com.example.movieapp.models.getMovies
 import com.example.movieapp.navigation.MovieScreens
 import com.example.movieapp.widgets.MovieRow
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun HomeScreen(navController: NavController){
     Scaffold(topBar = {
-        TopAppBar(backgroundColor = Color.Magenta,
-            elevation = 5.dp) {
+        TopAppBar(backgroundColor = Color.Transparent,
+            elevation = 0.dp) {
             Text(text = "Movies")
         }
     }) {
